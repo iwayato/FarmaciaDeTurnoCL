@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Map from "./components/Map";
 
 const url = "https://midas.minsal.cl/farmacia_v2/WS/getLocalesTurnos.php"
 
@@ -23,10 +24,14 @@ const App = () => {
         };
 
         fetchData();
-    }, []); // empty dependency array means this effect will only run once after the component mounts
+    }, []);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                Loading ...
+            </div>
+        )
     }
 
     if (error) {
@@ -34,15 +39,7 @@ const App = () => {
     }
 
     return (
-        <div>
-            {data && (
-                <ul>
-                    {data.map((item, index) => (
-                        <li key={index}>{item.comuna_nombre}</li>
-                    ))}
-                </ul>
-            )}
-        </div>
+        <Map spots = {data}/>
     );
 }
 
