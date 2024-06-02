@@ -2,7 +2,13 @@ import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { VStack, Text, Heading } from '@chakra-ui/react';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import icon from "../assets/marker.png"
 
+const pharmacyIcon = new L.Icon({
+    iconUrl: icon,
+    iconSize: [35, 35]
+});
+L.Marker.prototype.options.icon = pharmacyIcon;
 const corner1 = L.latLng(-11.011774, -102.208789);
 const corner2 = L.latLng(-57.234297, -25.698563);
 const bounds = L.latLngBounds(corner1, corner2);
@@ -20,7 +26,7 @@ const Map = ({ spots, center }) => {
             zoom={15}
             scrollWheelZoom={true}>
 
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer url='https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png' />
 
             {
                 spots.map((spot) =>
