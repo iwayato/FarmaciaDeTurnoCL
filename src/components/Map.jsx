@@ -26,7 +26,7 @@ const Map = ({ spots, center }) => {
             zoom={15}
             scrollWheelZoom={true}>
 
-            <TileLayer url='https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.png' />
+            <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
 
             {
                 spots.map((spot) =>
