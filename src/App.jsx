@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Map from "./components/Map";
 
-const url = "https://midas.minsal.cl/farmacia_v2/WS/getLocalesTurnos.php"
+const urlEnTurno = "https://midas.minsal.cl/farmacia_v2/WS/getLocalesTurnos.php"
 
 const App = () => {
 
@@ -40,7 +40,7 @@ const App = () => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(url);
+                const response = await axios.get(urlEnTurno);
                 setData(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -68,11 +68,12 @@ const App = () => {
             gridTemplateRows={'50px 1fr 30px'}
             gridTemplateColumns={'0px 1fr'}
             h={"100vh"}
+            w={"100vw"}
             color='blackAlpha.700'
             fontWeight='bold'>
 
             <GridItem pl='10px' bg='gray.100' area={'header'}>
-                <Heading>Farmacias en turno CL</Heading>
+                <Heading>Farmacias en turno Chile: {data.length}</Heading>
             </GridItem>
 
             <GridItem area={'main'}>
@@ -96,7 +97,7 @@ const App = () => {
             <GridItem pl='2' bg='gray.600' area={'footer'} color='white'>
                 <HStack>
                     <Text marginTop='3px'>
-                        Realizado por {' '} {' '}
+                        Desarrollado por {' '} {' '}
                         <Link color='teal.500' href='https://github.com/iwayato'>
                             Tomoaki Iwaya Villalobos
                         </Link>
