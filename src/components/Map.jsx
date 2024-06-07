@@ -13,8 +13,9 @@ const corner1 = L.latLng(-11.011774, -102.208789);
 const corner2 = L.latLng(-57.234297, -25.698563);
 const bounds = L.latLngBounds(corner1, corner2);
 
-const Map = ({ spots, center }) => {
 
+const Map = ({ spots, center }) => {
+    
     return (
         <MapContainer
             style={{ height: '100%', width: '100%' }}
@@ -26,13 +27,13 @@ const Map = ({ spots, center }) => {
             zoom={15}
             scrollWheelZoom={true}>
 
-            <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
             {
                 spots.map((spot) =>
                     <Marker
                         key={spot.local_id}
-                        position={[spot.local_lat, spot.local_lng]}>
+                        position={[parseFloat(spot.local_lat), parseFloat(spot.local_lng)]}>
                         <Tooltip
                             opacity={1}
                             direction='top'>

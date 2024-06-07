@@ -26,7 +26,7 @@ const App = () => {
 
     const successCallback = (position) => {
         setUserLoc({
-            lat: position.coords.latitude, 
+            lat: position.coords.latitude,
             lng: position.coords.longitude
         });
     };
@@ -52,21 +52,6 @@ const App = () => {
         fetchData();
     }, []);
 
-    if (isLoading) {
-        return (
-            <Center width='100%' height='100vh'>
-                <Spinner
-                    height='150px'
-                    width='150px'
-                    thickness='4px'
-                    speed='0.65s'
-                    emptyColor='gray.200'
-                    color='blue.500'
-                    size='xl' />
-            </Center>
-        )
-    }
-
     if (error) {
         return (
             <Center width='100%' height='100vh'>
@@ -90,8 +75,22 @@ const App = () => {
                 <Heading>Farmacias en turno CL</Heading>
             </GridItem>
 
-            <GridItem bg='green.300' area={'main'}>
-                <Map spots={data} center={userLoc}/>
+            <GridItem area={'main'}>
+                {
+                    isLoading ?
+                    <Center width='100%' height='100%'>
+                        <Spinner
+                            height='150px'
+                            width='150px'
+                            thickness='4px'
+                            speed='0.65s'
+                            emptyColor='gray.200'
+                            color='blue.500'
+                            size='xl' />
+                    </Center> :
+                    <Map spots={data} center={userLoc} />
+                
+                }
             </GridItem>
 
             <GridItem pl='2' bg='gray.600' area={'footer'} color='white'>
