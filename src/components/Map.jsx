@@ -1,3 +1,4 @@
+import MarkerClusterGroup from 'react-leaflet-cluster'
 import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { VStack, Text, Heading } from '@chakra-ui/react';
 import L from 'leaflet';
@@ -27,35 +28,37 @@ const Map = ({ spots, center }) => {
             zoom={15}
             scrollWheelZoom={true}>
 
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />
 
-            {
-                spots.map((spot) =>
-                    <Marker
-                        key={spot.local_id}
-                        position={[parseFloat(spot.local_lat), parseFloat(spot.local_lng)]}>
-                        <Tooltip
-                            opacity={1}
-                            direction='top'>
-                            <VStack
-                                spacing={3}
-                                align='stretch'>
-                                <Heading size='md' color='cadetblue'>{spot.local_nombre}</Heading>
-                                <Text fontSize='sm' color='gray.1000'>{spot.local_direccion}</Text>
-                                <Text fontSize='sm' color='gray.1000'>Hora apertura: {spot.funcionamiento_hora_apertura.slice(0, -3)}</Text>
-                                <Text fontSize='sm' color='gray.1000'>Hora cierre: {spot.funcionamiento_hora_cierre.slice(0, -3)}</Text>
-                                <Text fontSize='sm' color='gray.1000'>Teléfono: {
-                                    spot.local_telefono ?
-                                        (spot.local_telefono === "+56" || spot.local_telefono === "+560" ?
-                                            "Sin contacto" : spot.local_telefono)
-                                        : "Sin contacto"
-                                }
-                                </Text>
-                            </VStack>
-                        </Tooltip>
-                    </Marker>
-                )
-            }
+            <MarkerClusterGroup chunkedLoading>
+                {
+                    spots.map((spot) =>
+                        <Marker
+                            key={spot.local_id}
+                            position={[parseFloat(spot.local_lat), parseFloat(spot.local_lng)]}>
+                            <Tooltip
+                                opacity={1}
+                                direction='top'>
+                                <VStack
+                                    spacing={3}
+                                    align='stretch'>
+                                    <Heading size='md' color='cadetblue'>{spot.local_nombre}</Heading>
+                                    <Text fontSize='sm' color='gray.1000'>{spot.local_direccion}</Text>
+                                    <Text fontSize='sm' color='gray.1000'>Hora apertura: {spot.funcionamiento_hora_apertura.slice(0, -3)}</Text>
+                                    <Text fontSize='sm' color='gray.1000'>Hora cierre: {spot.funcionamiento_hora_cierre.slice(0, -3)}</Text>
+                                    <Text fontSize='sm' color='gray.1000'>Teléfono: {
+                                        spot.local_telefono ?
+                                            (spot.local_telefono === "+56" || spot.local_telefono === "+560" ?
+                                                "Sin contacto" : spot.local_telefono)
+                                            : "Sin contacto"
+                                    }
+                                    </Text>
+                                </VStack>
+                            </Tooltip>
+                        </Marker>
+                    )
+                }
+            </MarkerClusterGroup>
         </MapContainer>
     );
 }
