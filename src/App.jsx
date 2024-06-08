@@ -17,6 +17,7 @@ const urlEnTurno = "https://midas.minsal.cl/farmacia_v2/WS/getLocalesTurnos.php"
 const App = () => {
 
     const [data, setData] = useState(null);
+    const [counter, setCounter] = useState("-");
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [userLoc, setUserLoc] = useState({
@@ -42,6 +43,7 @@ const App = () => {
                 setIsLoading(true);
                 const response = await axios.get(urlEnTurno);
                 setData(response.data);
+                setCounter(response.data.length);
                 setIsLoading(false);
             } catch (error) {
                 setError(error);
@@ -73,7 +75,7 @@ const App = () => {
             fontWeight='bold'>
 
             <GridItem pl='10px' bg='gray.100' area={'header'}>
-                <Heading>Farmacias en turno Chile: {data.length}</Heading>
+                <Heading>Farmacias en turno Chile: {counter}</Heading>
             </GridItem>
 
             <GridItem area={'main'}>
