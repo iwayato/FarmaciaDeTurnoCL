@@ -42,7 +42,7 @@ const App = () => {
             try {
                 setIsLoading(true);
                 const response = await axios.get(urlEnTurno);
-                setData(response.data);
+                setData(response.data.filter((spot) => spot.local_lat && spot.local_lng));
                 setCounter(response.data.length);
                 setIsLoading(false);
             } catch (error) {
@@ -53,16 +53,6 @@ const App = () => {
 
         fetchData();
     }, []);
-
-    if (error) {
-        return (
-            <Center width='100%' height='100vh'>
-                <Text fontSize={"larger"} fontWeight={"bold"}>
-                    Error: {error.message}
-                </Text>
-            </Center>
-        )
-    }
 
     return (
         <Grid
@@ -90,9 +80,14 @@ const App = () => {
                             emptyColor='gray.200'
                             color='blue.500'
                             size='xl' />
+                    </Center> : 
+                    error ?
+                    <Center width='100%' height='100%'>
+                        <Text fontSize={"larger"} fontWeight={"bold"}>
+                            Error: {error.message}
+                        </Text>
                     </Center> :
                     <Map spots={data} center={userLoc} />
-                
                 }
             </GridItem>
 
