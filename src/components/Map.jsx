@@ -15,7 +15,7 @@ const corner2 = L.latLng(-57.234297, -25.698563);
 const bounds = L.latLngBounds(corner1, corner2);
 
 
-const Map = ({ spots, center }) => {
+const Map = ({ spots, center, zoom }) => {
     
     return (
         <MapContainer
@@ -25,7 +25,7 @@ const Map = ({ spots, center }) => {
             minZoom={4}
             dragging={true}
             center={[center.lat, center.lng]}
-            zoom={15}
+            zoom={zoom}
             scrollWheelZoom={true}>
 
             <TileLayer url='https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png' />

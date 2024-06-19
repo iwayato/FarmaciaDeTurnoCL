@@ -20,9 +20,11 @@ const App = () => {
     const [counter, setCounter] = useState("-");
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [zoom, setZoom] = useState(1);
+    const [windowH, setWindowH] = useState(window.innerHeight);
     const [userLoc, setUserLoc] = useState({
-        lat: -34.135020,
-        lng: -71.565964
+        lat: -53.1013,
+        lng: -70.5444
     });
 
     const successCallback = (position) => {
@@ -30,10 +32,15 @@ const App = () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         });
+        setZoom(14);
     };
 
     const errorCallback = (error) => {
         console.log(error);
+    };
+
+    const handleResize = () => {
+        setWindowH(window.innerHeight);
     };
 
     useEffect(() => {
@@ -54,18 +61,20 @@ const App = () => {
         fetchData();
     }, []);
 
+    window.addEventListener("resize", handleResize)
+
     return (
         <Grid
             templateAreas={`"header header" "nav main" "nav footer"`}
-            gridTemplateRows={'50px 1fr 30px'}
-            gridTemplateColumns={'0px 1fr'}
-            h={"100vh"}
-            w={"100vw"}
+            gridTemplateRows={`50px calc(${windowH}px - 80px) 30px`}
+            gridTemplateColumns={'0px 100%'}
             color='blackAlpha.700'
             fontWeight='bold'>
 
-            <GridItem pl='10px' bg='gray.100' area={'header'}>
-                <Heading>Farmacias en turno Chile: {counter}</Heading>
+            <GridItem pl='2' bg='gray.100' area={'header'} position='relative'>
+                <Heading fontSize={{ base: '20px', md: '25px', lg: '30px' }} position='absolute' top='50%' transform='translateY(-50%)'>
+                    Farmacias en turno Chile: {counter}
+                </Heading>
             </GridItem>
 
             <GridItem area={'main'}>
@@ -87,22 +96,22 @@ const App = () => {
                             Error: {error.message}
                         </Text>
                     </Center> :
-                    <Map spots={data} center={userLoc} />
+                    <Map spots={data} center={userLoc} zoom={zoom}/>
                 }
             </GridItem>
 
-            <GridItem pl='2' bg='gray.600' area={'footer'} color='white'>
-                <HStack>
-                    <Text marginTop='3px'>
+            <GridItem pl='2' bg='gray.600' area={'footer'} color='white' position='relative'>
+                <HStack position='absolute' top='50%' transform='translateY(-50%)'>
+                    <Text fontSize={{ base: '11px', md: '13px', lg: '16px' }}>
                         Desarrollado por {' '} {' '}
                         <Link color='teal.500' href='https://github.com/iwayato'>
                             Tomoaki Iwaya Villalobos
                         </Link>
                     </Text>
-                    <Text>
+                    <Text fontSize={{ base: '11px', md: '13px', lg: '16px' }}>
                         -
                     </Text>
-                    <Text>
+                    <Text fontSize={{ base: '11px', md: '13px', lg: '16px' }}>
                         2024
                     </Text>
                 </HStack>
