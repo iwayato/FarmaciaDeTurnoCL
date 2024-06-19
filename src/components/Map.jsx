@@ -47,11 +47,8 @@ const Map = ({ spots, center, zoom }) => {
                                     <Text fontSize='sm' color='gray.1000'>Hora apertura: {spot.funcionamiento_hora_apertura.slice(0, -3)}</Text>
                                     <Text fontSize='sm' color='gray.1000'>Hora cierre: {spot.funcionamiento_hora_cierre.slice(0, -3)}</Text>
                                     <Text fontSize='sm' color='gray.1000'>Teléfono: {
-                                        spot.local_telefono ?
-                                            (spot.local_telefono === "+56" || spot.local_telefono === "+560" ?
-                                                "Sin contacto" : spot.local_telefono)
-                                            : "Sin contacto"
-                                    }
+                                            spot.local_telefono.length < 8 ? "Sin contacto" : spot.local_telefono
+                                        }
                                     </Text>
                                 </VStack>
                             </Tooltip>
