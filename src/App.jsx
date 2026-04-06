@@ -21,7 +21,6 @@ const App = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [zoom, setZoom] = useState(1);
-    const [windowH, setWindowH] = useState(window.innerHeight);
     const [userLoc, setUserLoc] = useState({
         lat: -53.1013,
         lng: -70.5444
@@ -37,10 +36,6 @@ const App = () => {
 
     const errorCallback = (error) => {
         console.log(error);
-    };
-
-    const handleResize = () => {
-        setWindowH(window.innerHeight);
     };
 
     useEffect(() => {
@@ -61,13 +56,12 @@ const App = () => {
         fetchData();
     }, []);
 
-    window.addEventListener("resize", handleResize)
-
     return (
         <Grid
             templateAreas={`"header header" "nav main" "nav footer"`}
-            gridTemplateRows={`50px calc(${windowH}px - 80px) 30px`}
+            gridTemplateRows={`50px 1fr 30px`}
             gridTemplateColumns={'0px 100%'}
+            height='100dvh'
             color='blackAlpha.700'
             fontWeight='bold'>
 
@@ -93,7 +87,7 @@ const App = () => {
                     error ?
                     <Center width='100%' height='100%'>
                         <Text fontSize={"larger"} fontWeight={"bold"}>
-                            Error: {error.message}
+                            No se pudo cargar la información. Intenta recargar la página.
                         </Text>
                     </Center> :
                     <Map spots={data} center={userLoc} zoom={zoom}/>
@@ -104,7 +98,7 @@ const App = () => {
                 <HStack position='absolute' top='50%' transform='translateY(-50%)'>
                     <Text fontSize={{ base: '11px', md: '13px', lg: '16px' }}>
                         Desarrollado por {' '} {' '}
-                        <Link color='teal.500' href='https://github.com/iwayato'>
+                        <Link color='teal.500' href='https://github.com/iwayato' isExternal rel='noopener noreferrer'>
                             Tomoaki Iwaya Villalobos
                         </Link>
                     </Text>

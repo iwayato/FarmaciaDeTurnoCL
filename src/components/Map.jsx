@@ -1,5 +1,5 @@
 import MarkerClusterGroup from 'react-leaflet-cluster'
-import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { VStack, Text, Heading } from '@chakra-ui/react';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
@@ -36,22 +36,21 @@ const Map = ({ spots, center, zoom }) => {
                         <Marker
                             key={spot.local_id}
                             position={[parseFloat(spot.local_lat), parseFloat(spot.local_lng)]}>
-                            <Tooltip
-                                opacity={1}
-                                direction='top'>
+                            <Popup>
                                 <VStack
-                                    spacing={3}
-                                    align='stretch'>
-                                    <Heading size='md' color='cadetblue'>{spot.local_nombre}</Heading>
-                                    <Text fontSize='sm' color='gray.1000'>{spot.local_direccion}</Text>
-                                    <Text fontSize='sm' color='gray.1000'>Hora apertura: {spot.funcionamiento_hora_apertura.slice(0, -3)}</Text>
-                                    <Text fontSize='sm' color='gray.1000'>Hora cierre: {spot.funcionamiento_hora_cierre.slice(0, -3)}</Text>
-                                    <Text fontSize='sm' color='gray.1000'>Teléfono: {
+                                    spacing={2}
+                                    align='stretch'
+                                    minWidth='180px'>
+                                    <Heading size='sm' color='cadetblue'>{spot.local_nombre}</Heading>
+                                    <Text fontSize='sm'>{spot.local_direccion}</Text>
+                                    <Text fontSize='sm'>Apertura: {spot.funcionamiento_hora_apertura.slice(0, -3)}</Text>
+                                    <Text fontSize='sm'>Cierre: {spot.funcionamiento_hora_cierre.slice(0, -3)}</Text>
+                                    <Text fontSize='sm'>Tel: {
                                             spot.local_telefono.length < 8 ? "Sin contacto" : spot.local_telefono
                                         }
                                     </Text>
                                 </VStack>
-                            </Tooltip>
+                            </Popup>
                         </Marker>
                     )
                 }
