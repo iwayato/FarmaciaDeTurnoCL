@@ -1,0 +1,29 @@
+.pharmacy-popup .leaflet-popup-content-wrapper {
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    border: none;
+    min-width: 230px;
+}
+
+.pharmacy-popup .leaflet-popup-content {
+    margin: 0;
+    width: auto !important;
+}
+
+.pharmacy-popup .leaflet-popup-tip {
+    background: #285E61;
+}
+
+.pharmacy-popup .leaflet-popup-close-button {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 18px !important;
+    top: 6px !important;
+    right: 8px !important;
+    z-index: 1;
+}
+
+.pharmacy-popup .leaflet-popup-close-button:hover {
+    color: white !important;
+}
